@@ -27,6 +27,7 @@ var array = [];
 
 // Populate the array...
 
+// Use a OPTIONAL comparator
 array.mergeSort( function(a, b) {
   // Your custom comparator here
 });
