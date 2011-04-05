@@ -1,0 +1,34 @@
+I was rather surprised to further learn that the native Array.sort() method uses a selection sort which, according to http://en.wikipedia.org/wiki/Sort_algorithm performs very poorly.
+
+Sure enough, examining the WebKit source code here: http://svn.webkit.org/repository/webkit/trunk/Source/JavaScriptCore/runtime/ArrayPrototype.cpp
+
+You can see a comment:
+
+    // "Min" sort. Not the fastest, but definitely less code than heapsort
+    // or quicksort, and much less swapping than bubblesort/insertionsort.
+
+Considering that the folks at WebKit are so very concerned about Javascript performance, this was quite surprising to me.
+
+And, since I had a project that requires sorting tables with 1000+ rows, it became important to me to maximise performance as much as possible.
+
+I am putting this out in a public GitHub repository for the following reasons:
+
+1) Share this solution with others
+2) Improve the performance of this code via others with even more knowledge than me
+3) Highlight the fact that WebKit sorely needs to update the Array.sort method which appears to have been here since the beginning of that project =)
+
+
+
+USAGE:
+
+// Include Array.mergeSort.min.js in your project somewhere.
+
+var array = [];
+
+// Populate the array...
+
+array.mergeSort( function(a, b) {
+  // Your custom comparator here
+});
+
+// Array is now sorted, ~30% faster than the built-in array.sort() would have done on large arrays.
